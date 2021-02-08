@@ -1,0 +1,151 @@
+/*Nav styles */
+body {
+    font-family: sans-serif;
+    }
+
+.ct-nav{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    position: fixed;
+    width: 80%;
+}
+
+/* Target Main Logo Image */
+.ct-nav img{
+    width: 200px;
+    height: auto;
+}
+
+ul#horizontal-list{
+    display: flex;
+    justify-content:flex-end;
+    min-width: 200px;
+    list-style: none;
+    font-size:  15px;
+}
+
+ul#horizontal-list li, ul#horizontal-list a{
+    display: inline;
+    text-decoration: none;
+    padding: 0.5vw;
+    color: white;
+    text-shadow: 1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+ul#horizontal-list a{
+    padding: 0;
+    border: 2px solid white;
+    border-radius: 11px;
+}
+/* End of nav styles */
+
+
+
+/* start of hero/header section*/
+
+#header-intro{
+    background-image: url("../images/backgrounds/avengers1.jpg");
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position-y: 50%; 
+}
+
+#title-intro{
+    text-align: center;
+    padding: 16%;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#header-body{
+    background-image: url("../images/backgrounds/spiderman.jpg");
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position-y: 50%; 
+}
+
+#header-text{
+    padding: 2vw;
+    margin-top: 8%;
+}
+
+.header-image{
+    max-width: 102%;
+    height: auto;
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+
+/* End of Hero/Header Section */
+
+
+/*Start of Middle Section styles */
+#middle-intro{
+    background-image: url("../images/backgrounds/guardians.jpg");
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#middle-intro h1{
+    text-align: center;
+    padding: 20%;
+    color: white;
+    text-shadow: 1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#middle-text{
+padding: 2vw;
+margin-top: 8%;
+}
+
+/*End of Midle Section Styles*/
+
+/*Start of Features section styles*/
+#api-image,#graphql-image,#database-image{
+    margin-bottom: 10vh;
+}
+
+#features{
+    margin: 8vw;
+}
+/*End of Features section styles */
+
+/* Community Section Styles*/
+#bottom-intro{
+    background-image: url("../images/backgrounds/iron_man_endgame.jpg");
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    text-align: center;
+    padding: 20%;
+    color: white;
+    text-shadow: 1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/*END of Community Section*/
+
+/*Footer Section Styles*/
+.footer-text-flex{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3vw;
+}
+
+#footer-logo{
+    width: 100%;
+    max-width: 100%;
+}
+
+#footer{
+    border-top: 3px solid black;
+    margin-top: 20vh;
+}
