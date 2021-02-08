@@ -8,8 +8,18 @@
             <h2>Create Your Free Account</h2>
             {% include 'shared/forms.html' %}
         </aside>
-        <aside class="col-12 col-md-6" id="side-color">
-            <!-- todo: add button for google sign up -->
+
+        <div class = "google-choose">
+            <h4> OR </h4>
+        </div>
+
+        <a href="{{ url_for('google_auth') }}">
+            <button class="btn btn-dark">
+                Sign Up With Google
+            </button>
+        </a>
+
+        <aside class="col-12 col-md-6" id = "side-color" >
         </aside>
     </div>
 </main>

@@ -23,6 +23,20 @@
             <h2>Sign In To Your Account</h2>
             {% include 'shared/forms.html' %}
         </aside>
+        
+        
+        <!-- todo: add button for google sign up -->
+        <div class = "google-choose">
+            <h4> OR </h4>
+        </div>
+        <!-- Button For Google Sign Up -->
+        <a href="{{ url_for('google_auth') }}">
+            <button class="btn btn-dark">
+                Sign In With Google
+            </button>
+        </a>
+
+
         <aside class="col-12 col-md-6" id="side-color">
             <!-- todo: add button for google sign up -->
         </aside>
