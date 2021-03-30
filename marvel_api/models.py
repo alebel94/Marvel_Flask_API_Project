@@ -1,5 +1,5 @@
 from enum import unique
-from marvel_api import app, db, login_manager
+from marvel_api import app, db, login_manager, ma
 import uuid
 from datetime import datetime
 
@@ -61,7 +61,7 @@ class Character(db.Model):
     date_created = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     user_id = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, current_alias, super_power, description, date_created, id = '', real_name = '', affiliation = '', comics_appeared_in = '', origin_planet = ''):
+    def __init__(self, current_alias, super_power, description, date_created, user_id, real_name = '', affiliation = '', comics_appeared_in = '', origin_planet = ''):
         self.id = self.set_id()
         self.current_alias = current_alias
         self.super_power = super_power
@@ -71,6 +71,8 @@ class Character(db.Model):
         self.affiliation = affiliation
         self.comics_appeared_in = comics_appeared_in
         self.origin_planet = origin_planet
+        user_id = user_id
+
 
     def __repr__(self):
         return f'The following character has been added: {self.current_alias} which belongs tp {self.user_id}'
@@ -86,3 +88,11 @@ class Character(db.Model):
         'description': self.description,
         'date_created': self.date_created 
         }
+
+# Creation of API Schema via the Marshmallow Object
+class CharacterSchema(ma.Schema):
+    class Meta:
+        fields = ['id', 'current_alias', 'super_power', 'description', 'date_created', 'real_name', 'affiliation', 'comics_appeared_in', 'origin_planet']
+
+character_schema = CharacterSchema()
+characters_schema = CharacterSchema(many = True)

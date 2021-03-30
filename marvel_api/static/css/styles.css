@@ -31,13 +31,14 @@ ul#horizontal-list li, ul#horizontal-list a{
     text-decoration: none;
     padding: 0.5vw;
     color: white;
-    text-shadow: 1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 ul#horizontal-list a{
     padding: 0;
     border: 2px solid white;
     border-radius: 11px;
+    background: #e2001a;
+    background-clip: padding-box;
 }
 /* End of nav styles */
 
@@ -106,7 +107,7 @@ padding: 2vw;
 margin-top: 8%;
 }
 
-/*End of Midle Section Styles*/
+/*End of Middle Section Styles*/
 
 /*Start of Features section styles*/
 #api-image,#graphql-image,#database-image{
@@ -148,4 +149,31 @@ margin-top: 8%;
 #footer{
     border-top: 3px solid black;
     margin-top: 20vh;
+}
+
+/*profile styles*/
+.hero-section{
+    height: 95vh;
+    background-image: url("../images/backgrounds/hulk_hulkbuster.jpg");
+    background-size: cover;
+    background-position: 35% 50%;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+    position: relative;
+}
+
+.hero-section h3{
+    text-decoration: none;
+    padding: 0.5vw;
+    color: white;
+    text-shadow: 1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.header-text{
+    display:flex;
+    justify-content: center;
+    padding-top: 20%;
+    left: 20rem;
+    top: 10rem;
+    color: white;
 }

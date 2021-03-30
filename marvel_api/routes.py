@@ -1,15 +1,18 @@
 import jwt
 from marvel_api import app, db, oauth
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session, jsonify
 
 from marvel_api.forms import UserLoginForm
-from marvel_api.models import User, check_password_hash
+from marvel_api.models import User, check_password_hash, Character, character_schema, characters_schema
 
 #imports for flask login
 from flask_login import login_user, logout_user, current_user, login_required
 
 
 import os
+
+from marvel_api.helpers import get_jwt, token_required, verify_owner
+
 # from marvel_api.helpers import get_jwt, token_required, verify_owner
 
 @app.route('/')
@@ -68,8 +71,117 @@ def logout():
     return redirect(url_for('home'))
 
 
-# Google OAuth routes and config info
+@app.route('/profile', methods = ['GET'])
+@login_required
+def profile():
+    jwt = get_jwt(current_user)
+    print(current_user.token)
+    return render_template('profile.html', jwt = jwt)
 
+
+## CRUD
+# RETRIEVE ALL CHARACTERS ENDPOINT
+# CREATE CHARACTER ENDPOINT
+@app.route('/characters', methods=['POST'])
+@token_required
+def create_character(current_user_token):
+    print(current_user_token)
+    current_alias = request.json['current_alias']
+    real_name = request.json['real_name']
+    super_power = request.json['super_power']
+    affiliation = request.json['affiliation']
+    comics_appeared_in = request.json['comics_appeared_in']
+    origin_planet = request.json['origin_planet']
+    description = request.json['description']
+
+    user_id = current_user_token.token
+
+    character = Character(current_alias,real_name,super_power, affiliation, comics_appeared_in, origin_planet, description, user_id = user_id)
+
+    db.session.add(character)
+    db.session.commit()
+
+    response = character_schema.dump(character)
+    return jsonify(response)
+@app.route('/characters', methods = ['GET'])
+@token_required
+def get_characters(current_user_token):
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
+        
+    characters = Character.query.filter_by(user_id = owner.user_id).all()
+    response = character_schema.dump(characters)
+    return jsonify(response)
+
+
+
+# RETIREVE ONE CHARACTER ENDPOINT
+
+@app.route('/characters/<id>', methods= ['GET'])
+@token_required
+def get_character(current_user_token, id):
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
+    character = Character.query.get(id)
+    response = character_schema.dump(character)
+    return jsonify(response)
+
+
+# UPDATE CHARACTER ENDPOINT
+
+@app.route('/characters/<id>', methods=['POST', 'PUT'])
+@token_required
+def update_character(current_user_token, id):
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
+
+    character = Character.query.get(id) # GET Character INSTANCE
+    character.current_alias = request.json['current_alias']
+    character.super_power = request.json['super_power']
+    character.description = request.json['description']
+    character.real_name = request.json['real_name']
+    character.affiliation = request.json['affiliation']
+    character.comics_appeared_in = request.json['comics_appeared_in']
+    character.origin_planet = request.json['origin_planet']
+
+    db.session.commit()
+
+    response = character_schema.dump(character)
+    return jsonify(response)
+
+# DELETE CHARACTER ENDPOINT
+
+@app.route('/characters/<id>', methods=['DELETE'])
+@token_required
+def delete_character(current_user_token, id):
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
+
+    character = Character.query.get(id)
+    db.session.delete(character)
+    db.session.commit()
+
+    response = character_schema.dump(character)
+    return jsonify(response)
+
+
+
+
+
+
+# Google OAuth routes and config info
 google = oauth.register(
     name='google',
     client_id=os.getenv("GOOGLE_CLIENT_ID"),
